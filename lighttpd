@@ -1,0 +1,14 @@
+#!/usr/bin/python
+import sys, os, time
+import urllib2
+
+site = 'http://hydr0.com/status'
+
+if len(sys.argv) > 1:
+    if sys.argv[1] == 'config':
+        print "graph_title Traffic \ngraph_category lighttpd \ngraph_vlabel Count \ntotal.label Total"
+else:
+    x = urllib2.urlopen(site+"?auto").read()
+    if x:
+        x = x.split('\n')
+        print "total.value %s" % x[1].split(':')[1].strip()
